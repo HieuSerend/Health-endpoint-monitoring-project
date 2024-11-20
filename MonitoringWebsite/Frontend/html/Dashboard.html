@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+    <!-- Sidebar -->
+    <div class="flex">
+        <aside class="w-64 bg-gray-900 text-gray-300 flex flex-col min-h-screen">
+            <div class="flex items-center justify-center h-20 border-b border-gray-700">
+                <span class="text-lg font-bold text-white">Monitoring website</span>
+            </div>
+            <nav class="flex-grow px-4 py-8 space-y-4">
+                </a>
+                <a href="dashboard.html" class="flex items-center space-x-2 hover:text-white">
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 hover:text-white">
+                    <span>Alerts</span>
+                </a>
+                <!-- Monitoring Section with sub-items -->
+                <a href="apicheck.html" class="flex items-center space-x-2 hover:text-white">
+                    <span>Monitoring</span>
+                </a>
+                <!-- Additional menu items -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <h2 class="text-2xl font-semibold mb-4">Dashboard</h2>
+                
+                <!-- Metrics Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white p-4 rounded shadow">
+                        <h3 class="font-semibold text-lg">2 total checks</h3>
+                        <p>Up: 1</p>
+                        <p>Down: 1</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded shadow">
+                        <h3 class="font-semibold text-lg">Response Time</h3>
+                        <p>API: 125ms</p>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow">
+                        <h3 class="font-semibold text-lg">Other</h3>
+                        <p>Global Uptime: 100%</p>
+                        <p>Last Alert: 5d 16h</p>
+                    </div>
+                </div>
+
+                <!-- Checks Section -->
+                <h2 class="text-xl font-semibold mb-4">Checks</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <a href="checkdetails.html" class="bg-white p-4 rounded shadow">
+                        <h3 class="font-semibold text-lg">API 1</h3>
+                       <!-- <p>Up for ? time</p>
+                        <p>Uptime: ?%</p> -->
+                        <div class="bg-white p-4 rounded shadow mt-4">
+                            <iframe src="http://localhost:3000/d-solo/rYdddlPWkrttt/windows-node-exporter-2?timezone=browser&var-DS_PROMETHEUS=PBFA97CFB590B2093&var-job=&var-server=localhost:9182&var-diskdevices=%5Ba-z%5D%2B%7Cnvme%5B0-9%5D%2Bn%5B0-9%5D%2B%7Cmmcblk%5B0-9%5D%2B&refresh=30s&orgId=1&theme=light&panelId=264&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
+                        </div>
+                    </a>
+                    <a href="checkdetails.html" class="bg-white p-4 rounded shadow">
+                        <h3 class="font-semibold text-lg">API 2</h3>
+                        <div class="h-16 bg-gray-100 mt-4 rounded">
+                            <!-- Placeholder for graph -->
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Latest Alerts Section 
+                <h2 class="text-xl font-semibold mb-4">Latest Alerts</h2>
+                <div class="bg-white p-4 rounded shadow">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="py-2">Check</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Duration</th>
+                                <th>Locations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-2">API 1</td>
+                                <td>Nov 07, 2024 - 2:46am GMT</td>
+                                <td>Nov 07, 2024 - 2:57am GMT</td>
+                                <td>10m 25s</td>
+                                <td>Vietnam - Hanoi</td>
+                            </tr> -->
+                            <!-- Additional rows can be added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
