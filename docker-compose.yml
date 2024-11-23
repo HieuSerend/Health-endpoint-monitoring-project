@@ -1,0 +1,78 @@
+version: "3.8"
+services:
+  # Dịch vụ Gold API
+  gold-api:
+    build:
+      context: ./services/gold-api
+    environment:
+      PORT: 8001
+      SJC_URL: https://sjc.com.vn/GoldPrice/Services/PriceService.ashx
+    ports:
+      - "8001:8001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://gold-api:8001/gold-prices"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring-network
+
+  # Dịch vụ Forex API
+  forex-api:
+    build:
+      context: ./services/forex-api
+    environment:
+      PORT: 8002
+      VIETCOMBANK_URL: https://www.vietcombank.com.vn/api/exchangerates?date
+    ports:
+      - "8002:8002"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://forex-api:8002/currency-rates"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring-network
+
+  # Dịch vụ Prometheus
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring-network
+  
+  # Dịch vụ Grafana
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring-network
+
+  # Dịch vụ cAdvisor
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    restart: always
+    networks:
+      - monitoring-network
+
+networks:
+  monitoring-network:
+    driver: bridge

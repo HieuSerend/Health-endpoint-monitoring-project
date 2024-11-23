@@ -1,0 +1,36 @@
+global:
+  scrape_interval: 15s # Khoảng thời gian để Prometheus thu thập dữ liệu từ các targets
+  evaluation_interval: 15s # Khoảng thời gian để đánh giá các rules (nếu có)
+
+rule_files:
+  # Nếu có các rule tùy chỉnh, bạn có thể thêm chúng ở đây.
+  # - "first.rules"
+  # - "second.rules"
+
+scrape_configs:
+  # Cấu hình job cho cAdvisor
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"]
+
+  # Cấu hình job cho Gold API container
+  - job_name: "gold-container"
+    static_configs:
+      - targets: ["gold-api:8001"]
+
+  # Cấu hình job cho Forex API container
+  - job_name: "forex-container"
+    static_configs:
+      - targets: ["forex-api:8002"]
+      
+  # Cấu hình job cho Gold API endpoint
+  - job_name: "gold-api"
+    static_configs:
+      - targets: ["localhost:8001"]
+
+  # Cấu hình job cho Forex API endpoint
+  - job_name: "forex-api"
+    static_configs:
+      - targets: ["localhost:8002"]
+     
+   
