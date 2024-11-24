@@ -1,0 +1,17 @@
+{
+  "name": "currency-rates-api",
+  "version": "1.0.0",
+  "description": "currency rates api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "nchuy099",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "16.4.5",
+    "express": "4.21.1",
+    "prom-client": "^15.1.3"
+  }
+}

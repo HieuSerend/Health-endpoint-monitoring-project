@@ -1,0 +1,56 @@
+
+services:
+  
+  gold-api:
+    build:
+      context: ./services/gold-api
+    container_name: gold-api
+    ports:
+      - "8001:8001"  # Mapping cổng 8001 của container ra ngoài
+    environment:
+      - PORT=8001
+      - SJC_URL=https://sjc.com.vn/GoldPrice/Services/PriceService.ashx
+    restart: unless-stopped
+    
+
+  forex-api:
+    build:
+      context: ./services/forex-api
+    container_name: forex-api
+    ports:
+      - "8002:8002"  # Mapping cổng 8001 của container ra ngoài
+    environment:
+      - PORT=8002
+      - VIETCOMBANK_URL=https://www.vietcombank.com.vn/api/exchangerates?date
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+      
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000" 
+    environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+    restart: unless-stopped
+      
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro      
+    restart: unless-stopped
