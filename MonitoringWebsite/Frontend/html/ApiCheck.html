@@ -75,7 +75,27 @@
                             <td class="p-4">
                                 <input type="checkbox">
                             </td>
-                            <td><a href="checkdetails.html">API 1</a></td>
+                            <td><a href="CheckDetails.html">API 1</a></td>
+                            <td>-</td>
+                            <!--<td>API</td>-->
+                            <td class="text-green-600">100%</td>
+                            <td>
+                              Put graph here
+                            </td>
+                            <!--<td class="flex space-x-2">
+                                <button class="p-2"><i>✏️</i></button>
+                                <button class="p-2"><i>📅</i></button>
+                                <button class="p-2"><i>📊</i></button>
+                            </td>
+                          -->
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-4">
+                                <input type="checkbox">
+                            </td>
+                            <td><a href="CurrencyCheck.html">API 2</a></td>
                             <td>-</td>
                             <!--<td>API</td>-->
                             <td class="text-green-600">100%</td>
@@ -100,6 +120,36 @@
             </div>
         </main>
     </div>
+    <script type="module" src="../js/utils.js"></script>
+    <script type="module">
+        import { fetchData } from '../js/utils.js';
+    
+        async function loadApiChecks() {
+            const data = await fetchData('/gold-prices'); // Adjust the endpoint as necessary
+            if (data) {
+                const tbody = document.querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing rows
+    
+                data.forEach(api => {
+                    const row = document.createElement('tr');
+                    row.classList.add('border-b');
+                    row.innerHTML = `
+                        <td class="p-4"><input type="checkbox"></td>
+                        <td><a href="checkdetails.html">${api.name}</a></td>
+                        <td>${api.tags || '-'}</td>
+                        <td class="${api.uptime === 100 ? 'text-green-600' : 'text-red-600'}">${api.uptime}%</td>
+                        <td>Put graph here</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                console.error("Failed to load API checks.");
+            }
+        }
+    
+        // Load API checks on page load
+        window.onload = loadApiChecks;
+    </script>
 </body>
 
 </html>
