@@ -570,7 +570,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "rate(http_requests_total[30s]) * 30",
+          "expr": "(rate(http_requests_total[30s]) * 30) or vector(0)",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
